@@ -1,0 +1,61 @@
+.sidebar {
+  min-width: 16rem;
+  height: 100vh;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.iconWrapper {
+  background: linear-gradient(to bottom, #4ade80, #22c55e);
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  margin-left: 0.75rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  color: #000;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: #22c55e;
+  }
+
+  svg {
+    margin-right: 0.75rem;
+  }
+}
+button{
+  align-items: center !important; 
+  justify-content: left !important;
+  padding-left: 2rem;
+}

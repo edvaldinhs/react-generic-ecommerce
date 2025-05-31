@@ -1,0 +1,12 @@
+.displayFlex{
+    display: flex;
+}
+.test {
+    height: 200vh;
+    background: #DDDDDD;
+    overflow: hidden;
+    .home {
+        margin-top: 12vh;
+        background: #DDDDDD; 
+    }
+}
