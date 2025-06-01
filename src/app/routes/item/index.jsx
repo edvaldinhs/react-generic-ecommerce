@@ -1,11 +1,12 @@
 import styles from "./styles.module.scss";
 
-function Cart(){
+function Item(){
     return (
-        <div className={styles.container}>
+        <div className={styles.displayFlex}>
+            <Sidebar logoEnabled={true}/>
             <h1>Oi bom dia</h1>
         </div>
     )
 }
 
-export default Cart
+export default Item

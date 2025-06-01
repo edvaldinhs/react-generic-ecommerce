@@ -1,0 +1,77 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  gap: 3rem;
+  padding: 0 1rem 1rem 1rem;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 24rem;
+  width: 100%;
+}
+
+.icon {
+  color: #9ca3af;
+}
+
+.searchIcon {
+  margin-right: 0.5rem;
+}
+
+.slidersIcon {
+  margin-left: 0.5rem;
+}
+
+.searchInput {
+  flex-grow: 1;
+  outline: none;
+  color: #374151;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.iconButton {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  object-fit: contain;
+
+  &:hover {
+    transform: translateY(-0.3em);
+  }
+  img{
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.profileAvatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 10px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+
+  &:hover {
+    transform: translateY(-0.3em);
+  }
+}

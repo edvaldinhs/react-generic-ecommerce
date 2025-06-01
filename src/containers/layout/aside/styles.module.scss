@@ -1,33 +1,61 @@
 .sidebar {
   min-width: 16rem;
-  height: 100vh;
+  height: 100%;
   background-color: #ffffff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 -10px 10px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   padding: 1rem;
+  z-index: 3;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin: 0.24rem 2.5rem 2.5rem 2rem;
 }
 
 .iconWrapper {
-  background: linear-gradient(to bottom, #4ade80, #22c55e);
+  background: transparent;
   padding: 0.5rem;
-  border-radius: 0.5rem;
   display: flex;
+  border-radius: 0.5rem;
   align-items: center;
   justify-content: center;
+
+  &.withGradient {
+    background: linear-gradient(125deg,
+        var(--colors-purp-light),
+        var(--colors-blue-light),
+        var(--colors-purp-light),
+        var(--colors-blue-light),
+        var(--colors-purp-light));
+    background-size: 400% 100%;
+    background-repeat: no-repeat;
+    animation: gradientAnimation 40s linear infinite;
+  }
+}
+
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
 }
 
 .label {
-  margin-left: 0.75rem;
+  margin-left: 0.8rem;
   font-size: 1.125rem;
   font-weight: 600;
-  color: #22c55e;
+  color: transparent;
+
+  &.withGradient {
+    color: var(--colors-blue-light);
+  }
 }
 
 .nav {
@@ -47,15 +75,16 @@
   transition: color 0.2s ease-in-out;
 
   &:hover {
-    color: #22c55e;
+    color: var(--colors-blue-light);
   }
 
   svg {
     margin-right: 0.75rem;
   }
 }
-button{
-  align-items: center !important; 
+
+button {
+  align-items: center !important;
   justify-content: left !important;
   padding-left: 2rem;
 }

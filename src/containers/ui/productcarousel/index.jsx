@@ -1,70 +1,29 @@
-import React, { useRef } from "react";
+import { useEffect, useState, useRef } from 'react';
 import styles from "./styles.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import api from '../../../services/api'
 
-const products = [
-  {
-    name: "Processador AMD Ryzen 5 5600G, 3.9GHz",
-    price: "R$949,99",
-    rating: 4.9,
-    image: "https://example.com/ryzen.png",
-  },
-  {
-    name: "Smart TV Samsung 43 Polegadas UHD 4K",
-    price: "R$1929,99",
-    rating: 5.0,
-    image: "https://example.com/tv.png",
-  },
-  {
-    name: "Cadeira Gamer Husky Gaming, Preto e Vermelho",
-    price: "R$1135,99",
-    rating: 4.5,
-    image: "https://example.com/chair.png",
-  },
-  {
-    name: "Nobreak SMS NET4+ 1500VA Bivolt - 27296",
-    price: "R$929,99",
-    rating: 4.2,
-    image: "https://example.com/nobreak.png",
-  },
-  {
-    name: "SSD 480GB A400",
-    price: "R$199,99",
-    rating: 3.9,
-    image: "https://example.com/ssd.png",
-  },{
-    name: "Processador AMD Ryzen 5 5600G, 3.9GHz",
-    price: "R$949,99",
-    rating: 4.9,
-    image: "https://example.com/ryzen.png",
-  },
-  {
-    name: "Smart TV Samsung 43 Polegadas UHD 4K",
-    price: "R$1929,99",
-    rating: 5.0,
-    image: "https://example.com/tv.png",
-  },
-  {
-    name: "Cadeira Gamer Husky Gaming, Preto e Vermelho",
-    price: "R$1135,99",
-    rating: 4.5,
-    image: "https://example.com/chair.png",
-  },
-  {
-    name: "Nobreak SMS NET4+ 1500VA Bivolt - 27296",
-    price: "R$929,99",
-    rating: 4.2,
-    image: "https://example.com/nobreak.png",
-  },
-  {
-    name: "SSD 480GB A400",
-    price: "R$199,99",
-    rating: 3.9,
-    image: "https://example.com/ssd.png",
-  },
-];
+function FillProducts() {
+  const [produtos, setProdutos] = useState([])
+
+  async function getProdutos() {
+    const produtosFromApi = await api.get('/produto')
+
+    setProdutos(produtosFromApi.data)
+  }
+
+  useEffect(() => {
+    getProdutos()
+  }, [])
+
+  return produtos
+}
+
+
 
 const ProductCarousel = ({ scale = 1 }) => {
+  const products = FillProducts();
+
   const carouselRef = useRef(null);
 
   const scroll = (direction) => {
@@ -95,7 +54,7 @@ const ProductCarousel = ({ scale = 1 }) => {
           <div className={styles.card} key={index}>
             <img src={product.image} alt={product.name} />
             <div className={styles.name}>{product.name}</div>
-            <div className={styles.price}>{product.price}</div>
+            <div className={styles.price}>R${product.price}</div>
             <div className={styles.rating}>
               <span>⭐ {product.rating}</span>
               <button className={styles["add-btn"]}>+</button>
