@@ -7,7 +7,7 @@ function Cart() {
         <div className={styles.displayFlex}>
             <Sidebar logoEnabled={true}/>
             <div className={styles.container}>
-                <CartGrid/>
+                <CartGrid userId={"683de4499b6258ea7d76e7ad"} />
             </div>
         </div>
     )

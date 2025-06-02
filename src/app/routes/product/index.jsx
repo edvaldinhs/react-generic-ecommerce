@@ -4,7 +4,7 @@ import styles from './styles.module.scss';
 import api from '../../../services/api';
 import Sidebar from '../../../containers/layout/aside';
 
-const sizes = ['PPP', 'PP', 'P', 'M', 'G', '2G', '3G', '4G'];
+const types = ['PPP', 'PP', 'P', 'M', 'G', '2G', '3G', '4G'];
 
 const Product = () => {
     const { id } = useParams();
@@ -27,6 +27,34 @@ const Product = () => {
         fetchProduct();
     }, [id]);
 
+    const handleAddToCart = async () => {
+        const USER_ID = "683de4499b6258ea7d76e7ad";
+        // Esse id é do usuário genérico para testes, don't worry.
+        // Quando (e se) implementar contas, só pegar o do usuário
+        // atualmente logado...
+
+        try {
+            let cartRes = await api.get(`/cart/${USER_ID}`);
+            let cart = cartRes.data;
+
+            if (!cart) {
+                const newCartRes = await api.post(`/cart`, { userId: USER_ID });
+                cart = newCartRes.data;
+            }
+
+            await api.post(`/cartItem`, {
+                cartId: cart.id,
+                produtoId: product.id,
+                quantity: quantity
+            });
+
+            alert("Produto adicionado ao carrinho!");
+        } catch (err) {
+            console.error("Erro ao adicionar produto ao carrinho", err);
+            alert("Erro ao adicionar ao carrinho.");
+        }
+    };
+
     if (!product) return <div>Carregando...</div>;
 
     return (
@@ -39,8 +67,7 @@ const Product = () => {
                             src={product.image}
                             alt={product.name}
                             onClick={() => setSelectedImage(product.image)}
-                            className={`${styles.thumbnail} ${selectedImage === product.image ? styles.active : ''
-                                }`}
+                            className={`${styles.thumbnail} ${selectedImage === product.image ? styles.active : ''}`}
                         />
                     </div>
                     <div className={styles['main-image']}>
@@ -56,17 +83,16 @@ const Product = () => {
                     </div>
                     <p className={styles.installments}>6x sem juros</p>
 
-                    <div className={styles.sizes}>
-                        <p>TAMANHO</p>
-                        <div className={styles['size-options']}>
-                            {sizes.map(size => (
+                    <div className={styles.types}>
+                        <p>Tipo</p>
+                        <div className={styles['type-options']}>
+                            {types.map(type => (
                                 <button
-                                    key={size}
-                                    className={`${styles['size-btn']} ${selectedSize === size ? styles.selected : ''
-                                        }`}
-                                    onClick={() => setSelectedSize(size)}
+                                    key={type}
+                                    className={`${styles['type-btn']} ${selectedSize === type ? styles.selected : ''}`}
+                                    onClick={() => setSelectedSize(type)}
                                 >
-                                    {size}
+                                    {type}
                                 </button>
                             ))}
                         </div>
@@ -78,7 +104,9 @@ const Product = () => {
                         <button onClick={() => setQuantity(quantity + 1)}>+</button>
                     </div>
 
-                    <button className={styles['cta-button']}>ADICIONAR AO CARRINHO</button>
+                    <button className={styles['cta-button']} onClick={handleAddToCart}>
+                        ADICIONAR AO CARRINHO
+                    </button>
                 </div>
             </div>
         </div>

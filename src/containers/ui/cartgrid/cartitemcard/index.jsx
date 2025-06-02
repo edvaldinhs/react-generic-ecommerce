@@ -1,7 +1,17 @@
 import styles from './styles.module.scss';
+import api from '../../../../services/api';
 
-function CartItemCard({ item }) {
-  const { produto, quantity } = item;
+function CartItemCard({ item, onRemove }) {
+  const { produto, quantity, id } = item;
+
+  const handleRemove = async () => {
+    try {
+      await api.delete(`/cartItem/${id}`);
+      if (onRemove) onRemove(id);
+    } catch (err) {
+      console.error("Erro ao remover item do carrinho:", err);
+    }
+  };
 
   return (
     <div className={styles.card}>
@@ -18,6 +28,13 @@ function CartItemCard({ item }) {
         <div className={styles.meta}>
           <span>⭐ {produto.rating || "N/A"}</span>
         </div>
+
+        <div className={styles.removeButtonWrapper}>
+          <button className={styles.removeButton} onClick={handleRemove}>
+            Remover
+          </button>
+        </div>
+
       </div>
     </div>
   );
