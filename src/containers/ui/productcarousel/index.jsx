@@ -1,30 +1,26 @@
 import { useEffect, useState, useRef } from 'react';
 import styles from "./styles.module.scss";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import api from '../../../services/api'
-
-function FillProducts() {
-  const [produtos, setProdutos] = useState([])
-
-  async function getProdutos() {
-    const produtosFromApi = await api.get('/produto')
-
-    setProdutos(produtosFromApi.data)
-  }
-
-  useEffect(() => {
-    getProdutos()
-  }, [])
-
-  return produtos
-}
-
-
+import { useNavigate } from 'react-router-dom';
+import api from '../../../services/api';
 
 const ProductCarousel = ({ scale = 1 }) => {
-  const products = FillProducts();
-
+  const [products, setProducts] = useState([]);
   const carouselRef = useRef(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await api.get('/produto');
+        setProducts(res.data);
+      } catch (err) {
+        console.error("Erro ao buscar produtos", err);
+      }
+    }
+
+    fetchProducts();
+  }, []);
 
   const scroll = (direction) => {
     if (carouselRef.current) {
@@ -34,6 +30,10 @@ const ProductCarousel = ({ scale = 1 }) => {
         behavior: "smooth",
       });
     }
+  };
+
+  const handleClick = (id) => {
+    navigate(`/product/${id}`);
   };
 
   return (
@@ -57,7 +57,12 @@ const ProductCarousel = ({ scale = 1 }) => {
             <div className={styles.price}>R${product.price}</div>
             <div className={styles.rating}>
               <span>⭐ {product.rating}</span>
-              <button className={styles["add-btn"]}>+</button>
+              <button
+                className={styles["add-btn"]}
+                onClick={() => handleClick(product.id)}
+              >
+                +
+              </button>
             </div>
           </div>
         ))}
